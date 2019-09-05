@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<openerp>
+<odoo>
     <data>
         
         <!--  Add payment options to sale.order and invoice forms -->
         <record model="ir.ui.view" id="payment_paypal_option_config">
-            <field name="model">account.config.settings</field>
-            <field name="inherit_id" ref="account.view_account_config_settings"/>
+            <field name="model">res.config.settings</field>
+            <field name="inherit_id" ref="account.res_config_settings_view_form"/>
             <field name="arch" type="xml">
-                <xpath expr="//div[@name='payment_acquirer']" position="inside">
+                <xpath expr="//div[@id='account_followup']" position="after">
                     <button name='%(payment.action_payment_acquirer)d' type="action"
                         string="Configure sequra acquiring methods" class="oe_link"/>
                 </xpath>
@@ -15,4 +15,4 @@
         </record>
  
     </data>
-</openerp>
+</odoo>

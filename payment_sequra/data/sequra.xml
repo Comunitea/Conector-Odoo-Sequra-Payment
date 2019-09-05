@@ -5,7 +5,8 @@
             <field name="name">Recibe primero, paga después</field>
             <field name="provider">sequra</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="view_template_id" ref="payment_sequra.sequra_acquirer_first_receive_button"/>
+            <field name="view_template_id" ref="payment_sequra.sequra_acquirer_first_receive_form"/>
+            <field name="image" type="base64" file="payment_sequra/static/src/img/sequra_icon.png"/>
             <field name="environment">test</field>
             <field name="pre_msg">Recibe primero, paga después</field>
             <field name="website_published">True</field>
@@ -18,7 +19,8 @@
             <field name="name">Fracciona tu pago</field>
             <field name="provider">sequra</field>
             <field name="company_id" ref="base.main_company"/>
-            <field name="view_template_id" ref="payment_sequra.sequra_acquirer_part_payment_button"/>
+            <field name="view_template_id" ref="payment_sequra.sequra_acquirer_part_payment_form"/>
+            <field name="image" type="base64" file="payment_sequra/static/src/img/sequra_icon.png"/>
             <field name="environment">test</field>
             <field name="pre_msg">Fracciona tu pago</field>
             <field name="website_published">True</field>

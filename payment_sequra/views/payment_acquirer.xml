@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <record id="acquirer_form_sequra" model="ir.ui.view">
             <field name="name">acquirer.form.paypal</field>
             <field name="model">payment.acquirer</field>
             <field name="inherit_id" ref="payment.acquirer_form"/>
             <field name="arch" type="xml">
-                <field name="fees_active" position="after">
-                    <field name="sequra_user" attrs="{'invisible': [('provider', '!=', 'sequra')]}"/>
-                    <field name="sequra_pass" attrs="{'invisible': [('provider', '!=', 'sequra')]}"/>
-                    <field name="sequra_merchant" attrs="{'invisible': [('provider', '!=', 'sequra')]}"/>
-                </field>
+                <xpath expr='//group[@name="acquirer_base"]' position='after'>
+                    <group attrs="{'invisible': [('provider', '!=', 'sequra')]}">
+                        <field name="sequra_user" attrs="{'invisible': [('provider', '!=', 'sequra')]}"/>
+                        <field name="sequra_pass" attrs="{'invisible': [('provider', '!=', 'sequra')]}"/>
+                        <field name="sequra_merchant" attrs="{'invisible': [('provider', '!=', 'sequra')]}"/>
+                        <field name="return_ok_url" attrs="{'invisible': [('provider', '!=', 'sequra')]}"/>
+                    </group>
+                    <group attrs="{'invisible': [('provider', '!=', 'sequra')]}">
+                        <field name="send_quotation"/>
+                    </group>
+                </xpath>
             </field>
         </record>
 
@@ -23,16 +29,14 @@
                     <field name="provider"/>
                 </field>
 
-                <xpath expr='//notebook' position='inside'>
-                    <page string="Sequra TX Details" attrs="{'invisible': [('provider', '!=', 'sequra')]}">
-                        <group >
-                            <field name="order_sequra_ref" readonly="1" />
-                            <field name="sequra_conf_resp_status_code" />
-                            <field name="sequra_conf_resp_reason" />
-                        </group>
-                    </page>
+                <xpath expr='//sheet' position='inside'>
+                    <group string="Sequra TX Details" attrs="{'invisible': [('provider', '!=', 'sequra')]}">
+                        <field name="order_sequra_ref" readonly="1" />
+                        <field name="sequra_conf_resp_status_code" />
+                        <field name="sequra_conf_resp_reason" />
+                    </group>
                 </xpath>
             </field>
         </record>
     </data>
-</openerp>
+</odoo>
