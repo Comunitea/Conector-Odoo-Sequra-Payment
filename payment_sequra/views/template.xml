@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Pavel Munoz minibota@gmail.com August 2019  -->
+<odoo>
+    <template id="assets_frontend" inherit_id="web.assets_frontend" name="Custom Sequra Assets">
+        <xpath expr="." position="inside">
+            <link rel='stylesheet' href='/payment_sequra/static/src/css/styles.css'/>
+        </xpath>
+    </template>
+
+    <template id="sequra_checkout_product_template" inherit_id="theme_laze.stock_product">
+        <xpath expr="//div[contains(@class,'availability_messages')]" position="before">
+		<div
+		  class="sequra-promotion-widget"
+		  data-amount="000"
+		  data-product="pp3"
+		  data-size="L"
+		  data-branding="black"></div>
+        </xpath>
+    </template>
+
+</odoo>

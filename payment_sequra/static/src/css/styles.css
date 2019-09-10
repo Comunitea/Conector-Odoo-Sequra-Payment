@@ -1,0 +1,379 @@
+/* ------ */
+/* COMMON */
+/* ------ */
+
+/*
+body{
+   margin: 0;
+   color: #3b3b3a;
+   background-color: white;
+   font-family: 'Oxygen', sans-serif;
+}
+
+ul{
+   display: block;
+   list-style-type: disc;
+   -webkit-margin-before: 0px;
+   -webkit-margin-after: 0px;
+   -webkit-margin-start: 0px;
+   -webkit-margin-end: 0px;
+   -webkit-padding-start: 0px;
+   margin: 0;
+   padding: 0;
+}
+
+a{
+   color: #3b3b3a;
+   text-decoration: none;
+}
+
+li {
+   list-style-type: none;
+}
+*/
+
+/* ---- */
+/* PAGE */
+/* ---- */
+
+/*
+.container{
+   position: relative;
+   margin: 0 auto;
+   width: auto;
+   color: #444444;
+}
+
+.content{
+   position: relative;
+   max-width: 1275px;
+   margin: auto;
+}
+
+.header{
+   position: relative;
+   height: 60px;
+   background-color: #0DA265;
+   text-align:  center;
+   z-index: 999;
+}
+
+.header-logo{
+   position: relative;
+   float:left;
+   margin-top: 18px;
+   margin-left: 40px;
+   z-index: 999;
+}
+*/
+
+/* ----------- */
+/* SEQURA INFO */
+/* ----------- */
+
+
+.what-sequra{
+   padding-top: 15px;
+   text-align: right;
+   padding-right: 20px;
+}
+
+.what-sequra a{
+   color: white;
+}
+
+.promo{
+   width: 100%;
+   height: 600px;
+   background-color: #C8E9D8;
+}
+
+.promo-background {
+   //background: url('images/promo.png') right 20px top no-repeat;
+   width: 100%;
+   height: 100%;
+}
+
+.promo .copys{
+   width: 600px;
+   height: 100%;
+   padding-left: 20px;
+}
+
+.promo .title{
+   padding-top: 170px;
+   line-height: 55px;
+   font-size: 48px;
+   font-weight: bold;
+}
+
+.promo .description{
+   font-size: 32px;
+   padding-top: 30px;
+   font-weight: bold;
+}
+
+.promo .sub-title{
+   width: 100%;
+   font-size: 18px;
+   margin-top: 40px;
+   line-height: 30px;
+}
+
+.products{
+   display: block;
+   overflow: auto;
+   width: 100%;
+}
+
+.products-header{
+   background-color: #F7F7F7;
+   text-align: center;
+   height: 150px;
+}
+
+.products-header-text{
+   font-size: 32px;
+   font-weight: bold;
+   padding-top: 60px;
+}
+
+.product{
+   display: block;
+   overflow: auto;
+   margin-bottom: 0 !important;
+}
+
+.product-despues{
+   background: url('images/picto-despues.png') center no-repeat;
+}
+
+.product-fracciona{
+   background: url('images/picto-fracciona.png') center no-repeat;
+}
+
+.product-aplazado{
+   background: url('images/picto-aplazado.png') center no-repeat;
+}
+
+.product-copy{
+   padding: 50px;
+   width: 43%;
+   margin-top: 130px;
+}
+
+.copy-despues{
+   float: left;
+}
+
+.image-despues{
+   float: left;
+   text-align: left;
+   width: 45%;
+}
+
+.copy-fracciona{
+   float:right;
+}
+
+.image-fracciona{
+   float: left;
+   text-align: right;
+   width: 45%;
+}
+
+
+.copy-aplazado{
+   float: left;
+}
+
+.image-aplazado{
+   float: left;
+   text-align: left;
+   width: 45%;
+}
+
+.product-title{
+   font-size: 32px;
+   font-weight: bold;
+   margin-top: 20px;
+   margin-bottom: 20px;
+   line-height: 40px;
+}
+
+/* ------ */
+/* FOOTER */
+/* ------ */
+/*
+.footer{
+   width:100%;
+   height: 200px;
+   font-size: 14px;
+   margin-top: 50px;
+   padding-top: 40px;
+   text-align: center;
+   line-height: 30px;
+   background-color: #F7F7F7;
+}
+*/
+
+/* ------ */
+/* MOBILE */
+/* ------ */
+/*
+@media only screen and (max-device-width: 480px) {
+   .container{
+      padding: 0;
+      margin: 0;
+   }
+
+   .header{
+      text-align: center;
+   }
+
+   .header-logo{
+      display: inline-block;
+      margin-top: 18px;
+      margin-left: 0;
+      width: 100%;
+   }
+*/
+
+   /* ----------- */
+   /* SEQURA INFO */
+   /* ----------- */
+
+   .what-sequra{
+      display: none;
+   }
+
+   .promo{
+      margin-top: 0;
+      height: 370px;
+      background-image: none;
+      text-align: center;
+      margin: auto 0;
+   }
+
+   .promo-background {
+      //background: url('images/promo.png') right -130px top -60px no-repeat;
+      height: 370px;
+   }
+
+   .promo .title {
+      padding-top: 0;
+      font-size: 32px;
+      line-height: 40px;
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+
+   .promo .copys {
+      width: auto;
+      left: 0;
+      height: 100%;
+      padding-top: 65px;
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+
+   .promo .sub-title{
+      width: auto;
+      font-size: 18px;
+      margin-top: 40px;
+      line-height: 25px;
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+
+   .product-despues{
+      width: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+   }
+
+   .product-fracciona{
+      width: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+   }
+
+
+   .product-aplazado{
+      width: auto;
+      padding-left: 20px;
+      padding-right: 20px;
+   }
+
+   .products-header{
+      background-color: #F7F7F7;
+      text-align: center;
+      height: 100px;
+   }
+
+   .products-header-text{
+      font-size: 20px;
+      font-weight: bold;
+      padding-top: 25px;
+      padding-left: 10px;
+      padding-right: 10px;
+   }
+
+   .product-copy {
+      padding: 0;
+      margin-top: 40px;
+      text-align: center;
+   }
+
+   .copy-despues{
+      float: none;
+      display: block;
+      width: 100%;
+   }
+
+   .image-despues{
+      float: none;
+      text-align: left;
+      width: 100%;
+      text-align: center;
+   }
+
+   .copy-fracciona{
+      float: none;
+      display: block;
+      width: 100%;
+   }
+
+   .image-fracciona{
+      float: none;
+      display: block;
+      width: 100%;
+      text-align: center;
+   }
+
+   .copy-aplazado{
+      float: none;
+      display: block;
+      width: 100%;
+   }
+
+   .image-aplazado{
+      float: none;
+      text-align: left;
+      width: 100%;
+      text-align: center;
+   }
+
+   .product-img{
+      width:90%;
+   }
+
+   .product-title{
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 5px;
+      margin-bottom: 20px;
+      line-height: 40px;
+   }
+
+}

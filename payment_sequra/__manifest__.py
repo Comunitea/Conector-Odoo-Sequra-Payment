@@ -8,6 +8,8 @@
     'author': 'Raul Fidel Rodríguez Trasanco',
     'depends': ['product', 'delivery', 'payment', 'website', 'website_sale','account_payment'],
     'data': [
+            'views/assets.xml',
+            'views/template.xml',
             'views/sequra.xml',
             'data/sequra.xml',
             'views/payment_acquirer.xml',

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Assets, less, js -->
+
+  <template id="assent_front" inherit_id="website.assets_frontend">
+    <xpath expr="." position="inside">
+	
+<script type="text/javascript">
+
+  var sequraConfigParams = {
+    merchant: "reketec", // Your merchant reference given by SeQura.
+    assetKey: "C7KbV3yh5h", // Your asset key given by SeQura.
+    products: ["i1", "pp3"], // List of SeQura products that you want to include components.
+    scriptUri: "https://live.sequracdn.com/assets/sequra-checkout.min.js", // SeQura Javascript library uri for production or sandbox.
+    decimalSeparator: ",", // Decimal separator used in currencies formatting. Optional, default `,`.
+    thousandSeparator: ".", // Thousand separator used in currencies formatting. Optional, default `.`.
+    rebranding: true
+  };
+
+  (function(i, s, o, g, r, a, m) {i["SequraConfiguration"] = g;i["SequraOnLoad"] = [];i[r] = {};i[r][a] = function(callback) {i["SequraOnLoad"].push(callback);};(a = s.createElement(o)), (m = s.getElementsByTagName(o)[0]);a.async = 1;a.src = g.scriptUri;m.parentNode.insertBefore(a, m);})(window, document, "script", sequraConfigParams, "Sequra", "onLoad");
+
+    $(document).ready(function() {
+	t = $('.oe_total_price .oe_currency_value').text().replace('.', '').replace(',', '.');
+	$.getJSON( "/sequra/is_enabled", function( data ) {
+		if (data['sequra']) {
+			$('.sequra-promotion-widget').attr('data-amount', t);
+			Sequra.refreshComponents();
+		} else {
+			$('.sequra-promotion-widget').hide();
+		}
+	});
+    });
+</script>
+
+
+	</xpath>
+  </template>
+</odoo>

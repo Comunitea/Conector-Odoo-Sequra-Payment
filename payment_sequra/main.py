@@ -40,54 +40,54 @@ class SequraController(http.Controller):
         if order_ref and order_ref_1:
             order = request.env['sale.order'].sudo().search([('sequra_location', 'like', '%'+order_ref)], limit=1)
             if len(order):
-                tx = request.env['payment.transaction'].sudo().search([('sale_order_id', '=', order.id)],
-                                                                      order='create_date desc', limit=1)
-                if tx:
-                    post = {
-                        'merchant_id': tx.acquirer_id.sequra_merchant,
-                        'return_ok_url': tx.acquirer_id.return_ok_url,
-                    }
-                    data = self._get_data_json(post, order, state='confirmed')
-                    endpoint = order.sequra_location
-                    response = tx.acquirer_id.request(endpoint, method='PUT', data=data)
-                    values = {
-                        'sequra_conf_resp_status_code': response.status_code,
-                        'sequra_conf_resp_reason': response.reason
-                    }
-                    _logger.info("********************Response Code******************************")
-                    _logger.info(response.status_code)
-                    if 299 >= response.status_code >= 200:
-                        values.update({
-                            'state': 'done',
-                            'order_sequra_ref': order_ref,
-                        })
-                        tx.sudo().write(values)
-                        if tx.acquirer_id.send_quotation:
-                            tx.sudo().sale_order_id.force_quotation_send()
-                            _logger.info("********************Quotation Send******************************")
-                        tx.sudo().sale_order_id.action_confirm()
-                        _logger.info("********************Quotation Confirmed******************************")
-                        invoices = tx.sudo().sale_order_id.action_invoice_create()
-                        _logger.info("********************Invoice Created******************************")
-                        tx.account_invoice_id = invoices and invoices[0] or False
-                        if tx.account_invoice_id:
-                            tx.account_invoice_id.action_invoice_open()
-                            _logger.info("********************Invoice Open******************************")
-                            tx._confirm_invoice()
-                            _logger.info("********************Invoice Pay******************************")
-                        return Response('OK', status=200)
-                    elif response.status_code == 409:
-                        _logger.info("***************/checkout/sequra-ipn *******************")
-                        _logger.info("Cart has changed")
-                        return Response('Conflict', status=409)
-                    else:
-                        _logger.info("***************/checkout/sequra-ipn *******************")
-                        _logger.info("Error found in sequra response with status code %s" % response.status_code)
-                        return Response(response.reason, status=response.status_code)
-            else:
-                _logger.info("***************/checkout/sequra-ipn *******************")
-                _logger.info("order_ref_1 = %s no found in odoo" % order_ref_1)
-                return Response('Not Found', status=404)
+                if order_ref_1 == order.name:
+                    tx = request.env['payment.transaction'].sudo().search([('reference', '=', order_ref_1)], limit=1)
+                    if tx:
+                        post = {
+                            'merchant_id': tx.acquirer_id.sequra_merchant,
+                            'return_ok_url': tx.acquirer_id.return_ok_url,
+                        }
+                        data = self._get_data_json(post, order, state='confirmed')
+                        endpoint = order.sequra_location
+                        response = tx.acquirer_id.request(endpoint, method='PUT', data=data)
+                        values = {
+                            'sequra_conf_resp_status_code': response.status_code,
+                            'sequra_conf_resp_reason': response.reason
+                        }
+                        _logger.info("********************Response Code******************************")
+                        _logger.info(response.status_code)
+                        if 299 >= response.status_code >= 200:
+                            values.update({
+                                'state': 'done',
+                                'order_sequra_ref': order_ref,
+                            })
+                            tx.sudo().write(values)
+                            if tx.acquirer_id.send_quotation:
+                                tx.sudo().sale_order_id.force_quotation_send()
+                                _logger.info("********************Quotation Send******************************")
+                            tx.sudo().sale_order_id.action_confirm()
+                            _logger.info("********************Quotation Confirmed******************************")
+                            invoices = tx.sudo().sale_order_id.action_invoice_create()
+                            _logger.info("********************Invoice Created******************************")
+                            tx.account_invoice_id = invoices and invoices[0] or False
+                            if tx.account_invoice_id:
+                                tx.account_invoice_id.action_invoice_open()
+                                _logger.info("********************Invoice Open******************************")
+                                tx._confirm_invoice()
+                                _logger.info("********************Invoice Pay******************************")
+                            return Response('OK', status=200)
+                        elif response.status_code == 409:
+                            _logger.info("***************/checkout/sequra-ipn *******************")
+                            _logger.info("Cart has changed")
+                            return Response('Conflict', status=409)
+                        else:
+                            _logger.info("***************/checkout/sequra-ipn *******************")
+                            _logger.info("Error found in sequra response with status code %s" % response.status_code)
+                            return Response(response.reason, status=response.status_code)
+                else:
+                    _logger.info("***************/checkout/sequra-ipn *******************")
+                    _logger.info("order_ref_1 = %s no found in odoo" % order_ref_1)
+                    return Response('Not Found', status=404)
 
         else:
             _logger.info("***************/checkout/sequra-ipn *******************")
