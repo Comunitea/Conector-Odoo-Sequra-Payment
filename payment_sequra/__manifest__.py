@@ -3,9 +3,13 @@
 {
     'name': 'SeQura Payment Acquirer',
     'summary': 'SeQura Acquirer: SeQura Implementation',
-    'version': '11.0.1',
+    'version': '12.0.0',
     'description': """SeQura Payment Acquirer""",
     'author': 'Raul Fidel Rodríguez Trasanco',
+    'contributors': [
+        'Comunitea Servicios Tecnológicos S.L. <info@comunitea.com>'
+        'Vicente Ángel Gutiérrez <vicente@comunitea.com>',
+    ],
     'depends': ['product', 'delivery', 'payment', 'website', 'website_sale','account_payment'],
     'data': [
             'views/assets.xml',

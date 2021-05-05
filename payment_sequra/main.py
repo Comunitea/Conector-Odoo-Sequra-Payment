@@ -226,6 +226,7 @@ class SequraController(http.Controller):
 
     def _get_data_json(self, post, aorder=None, state=''):
         base_url = request.env['ir.config_parameter'].sudo().get_param('web.base.url')
+        print("base_url: {}".format(base_url))
 
         notify_url = '%s/checkout/sequra-ipn' % base_url
 
@@ -317,7 +318,9 @@ class SequraController(http.Controller):
     @http.route(['/sequra/is_enabled'], type='http', auth="public", methods=['GET'], website=True)
     def get_sequra_is_enabled_json(self):
         domain = ['&', ('website_published', '=', True), ('provider', 'ilike', 'SeQura')]
+        print("domain: {}".format(domain))
         acquirers = request.env['payment.acquirer'].search(domain)
+        print("acquirers: {}".format(acquirers))
         return json.dumps({
             'sequra': len(acquirers) > 0
         })

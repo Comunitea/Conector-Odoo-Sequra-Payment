@@ -7,7 +7,7 @@
         </xpath>
     </template>
 
-    <template id="sequra_checkout_product_template" inherit_id="theme_laze.stock_product">
+    <template id="sequra_checkout_product_template" inherit_id="website_sale.product">
         <xpath expr="//div[contains(@class,'availability_messages')]" position="before">
 		<div
 		  class="sequra-promotion-widget"

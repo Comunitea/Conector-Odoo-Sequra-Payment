@@ -97,9 +97,14 @@ class SequraController(http.Controller):
 
     @http.route('/payment/sequra', type='http', auth='public', methods=['POST'], csrf=False, website=True)
     def payment_sequra(self, **post):
+        print("payment_sequra")
         acquirer_obj = request.env['payment.acquirer'].sudo(SUPERUSER_ID).browse(int(post.get('acquirer_id', -1)))
+        print("acquirer_obj: {}".format(acquirer_obj))
         order = request.website.sale_get_order()
+        print("order: {}".format(order))
         r = self.start_solicitation(acquirer_obj, post, order)
+        print("r: {}".format(r))
+        print("r.status_code: {}".format(r.status_code))
         if r.status_code == 204:
             location = r.headers.get('Location')
             method_payment = post.get('payment_method')
@@ -193,8 +198,10 @@ class SequraController(http.Controller):
             price_without_tax = int(round((price_subtotal / sol.product_uom_qty) * 100, 2))
 
             tax = sol.price_tax if price_subtotal else 0
+            tax = round(tax, 2)
 
             total_with_tax = int(round((price_subtotal + tax) * 100, 2))
+            print("price_subtotal + tax : {} + {} = {}".format(price_subtotal, tax, total_with_tax))
             price_with_tax = int(round(((price_subtotal + tax)/sol.product_uom_qty) * 100, 2))
 
             if order_id.carrier_id.name != sol.name:
@@ -258,7 +265,9 @@ class SequraController(http.Controller):
         if order.carrier_id:
             carrier_name = order.carrier_id.name
 
-        return json.dumps(
+        print("order.amount_total: {}".format(order.amount_total))
+
+        json_items = json.dumps(
             {
                 "order": {
                     "state": state,
@@ -292,6 +301,10 @@ class SequraController(http.Controller):
                 }
             }
         )
+
+        print("json_items: {}".format(json_items))
+
+        return json_items
 
     def render_payment_acquirer(self, order, values):
         shipping_partner_id = False

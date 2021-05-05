@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <template id="payment_inherit" inherit_id="website_sale.payment">
-            <xpath expr="//div[@class='container oe_website_sale']" position="inside">
+            <xpath expr="//div[hasclass('container', 'oe_website_sale')]" position="inside">
                 <t t-raw="0"/>
             </xpath>
         </template>
