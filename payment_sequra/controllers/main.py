@@ -66,7 +66,7 @@ class SequraController(http.Controller):
                             tx.sudo().sale_order_ids.force_quotation_send()
                             _logger.info("********************Quotation Send******************************")
                         result = tx.sudo().sale_order_ids.action_confirm()
-                        _logger.info("********************Quotation Confirmed******************************")
+                        """ _logger.info("********************Quotation Confirmed******************************")
                         invoices = tx.sudo().sale_order_ids.action_invoice_create()
                         _logger.info("********************Invoice Created******************************")
                         tx.account_invoice_id = request.env['account.invoice'].browse(invoices and invoices[0] or [])
@@ -74,7 +74,7 @@ class SequraController(http.Controller):
                             tx.account_invoice_id.sudo().action_invoice_open()
                             _logger.info("********************Invoice Open******************************")
                             tx.account_invoice_id.sudo().action_validate_invoice_payment()
-                            _logger.info("********************Invoice Pay******************************")
+                            _logger.info("********************Invoice Pay******************************") """
                         return Response('OK', status=200)
                     elif response.status_code == 409:
                         _logger.info("***************/checkout/sequra-ipn *******************")
