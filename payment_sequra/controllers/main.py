@@ -8,6 +8,8 @@ from werkzeug.wrappers import BaseResponse as Response
 from odoo import _
 from datetime import datetime
 
+from odoo.tools.float_utils import float_round
+
 import re
 import os
 import json
@@ -97,14 +99,9 @@ class SequraController(http.Controller):
 
     @http.route('/payment/sequra', type='http', auth='public', methods=['POST'], csrf=False, website=True)
     def payment_sequra(self, **post):
-        print("payment_sequra")
         acquirer_obj = request.env['payment.acquirer'].sudo(SUPERUSER_ID).browse(int(post.get('acquirer_id', -1)))
-        print("acquirer_obj: {}".format(acquirer_obj))
         order = request.website.sale_get_order()
-        print("order: {}".format(order))
         r = self.start_solicitation(acquirer_obj, post, order)
-        print("r: {}".format(r))
-        print("r.status_code: {}".format(r.status_code))
         if r.status_code == 204:
             location = r.headers.get('Location')
             method_payment = post.get('payment_method')
@@ -194,15 +191,17 @@ class SequraController(http.Controller):
         items = []
         for sol in order_id.order_line:
             price_subtotal = sol.price_subtotal
-            total_without_tax = int(round(price_subtotal * 100, 2))
-            price_without_tax = int(round((price_subtotal / sol.product_uom_qty) * 100, 2))
+            total_without_tax = int(float_round(price_subtotal * 100, 2))
+            price_without_tax = int(float_round((price_subtotal / sol.product_uom_qty) * 100, 2))
 
             tax = sol.price_tax if price_subtotal else 0
-            tax = round(tax, 2)
+            tax = float_round(tax, 2)
 
-            total_with_tax = int(round((price_subtotal + tax) * 100, 2))
+            total_with_tax = int(float_round((price_subtotal + tax) * 100, 2))
+
+            
             print("price_subtotal + tax : {} + {} = {}".format(price_subtotal, tax, total_with_tax))
-            price_with_tax = int(round(((price_subtotal + tax)/sol.product_uom_qty) * 100, 2))
+            price_with_tax = int(float_round(((price_subtotal + tax)/sol.product_uom_qty) * 100, 2))
 
             if order_id.carrier_id.name != sol.name:
                 item = {
