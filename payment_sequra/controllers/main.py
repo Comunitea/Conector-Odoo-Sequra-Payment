@@ -40,7 +40,7 @@ class SequraController(http.Controller):
         if order_ref and order_ref_1:
             order = request.env['sale.order'].sudo().search([('sequra_location', 'like', '%'+order_ref)], limit=1)
             if len(order):
-                tx = request.env['payment.transaction'].sudo().search([('sale_order_id', '=', order.id)],
+                tx = request.env['payment.transaction'].sudo().search([('sale_order_ids', 'in', [order.id])],
                                                                       order='create_date desc', limit=1)
                 if tx:
                     post = {
