@@ -65,9 +65,7 @@ class SequraController(http.Controller):
                         if tx.acquirer_id.send_quotation:
                             tx.sudo().sale_order_ids.force_quotation_send()
                             _logger.info("********************Quotation Send******************************")
-                        print("tx.sudo().sale_order_ids: {}".format(tx.sudo().sale_order_ids))
                         result = tx.sudo().sale_order_ids.action_confirm()
-                        print("action result: {}".format(result))
                         _logger.info("********************Quotation Confirmed******************************")
                         invoices = tx.sudo().sale_order_ids.action_invoice_create()
                         _logger.info("********************Invoice Created******************************")
@@ -75,7 +73,7 @@ class SequraController(http.Controller):
                         if tx.account_invoice_id:
                             tx.account_invoice_id.sudo().action_invoice_open()
                             _logger.info("********************Invoice Open******************************")
-                            tx._confirm_invoice()
+                            tx.account_invoice_id.sudo().action_validate_invoice_payment()
                             _logger.info("********************Invoice Pay******************************")
                         return Response('OK', status=200)
                     elif response.status_code == 409:
