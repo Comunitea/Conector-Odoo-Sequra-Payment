@@ -69,7 +69,8 @@ class SequraController(http.Controller):
                         _logger.info("********************Quotation Confirmed******************************")
                         invoices = tx.sudo().sale_order_ids.action_invoice_create()
                         _logger.info("********************Invoice Created******************************")
-                        tx.account_invoice_id = invoices and invoices[0] or False
+                        tx.account_invoice_id = request.env['account.invoice'].browse(invoices and invoices[0] or [])
+                        _logger.info("tx.account_invoice_id: {}".format(tx.account_invoice_id))
                         if tx.account_invoice_id:
                             tx.account_invoice_id.action_invoice_open()
                             _logger.info("********************Invoice Open******************************")
