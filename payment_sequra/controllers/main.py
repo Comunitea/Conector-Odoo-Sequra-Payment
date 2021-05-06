@@ -63,11 +63,11 @@ class SequraController(http.Controller):
                         })
                         tx.sudo().write(values)
                         if tx.acquirer_id.send_quotation:
-                            tx.sudo().sale_order_id.force_quotation_send()
+                            tx.sudo().sale_order_ids.force_quotation_send()
                             _logger.info("********************Quotation Send******************************")
-                        tx.sudo().sale_order_id.action_confirm()
+                        tx.sudo().sale_order_ids.action_confirm()
                         _logger.info("********************Quotation Confirmed******************************")
-                        invoices = tx.sudo().sale_order_id.action_invoice_create()
+                        invoices = tx.sudo().sale_order_ids.action_invoice_create()
                         _logger.info("********************Invoice Created******************************")
                         tx.account_invoice_id = invoices and invoices[0] or False
                         if tx.account_invoice_id:
