@@ -65,14 +65,15 @@ class SequraController(http.Controller):
                         if tx.acquirer_id.send_quotation:
                             tx.sudo().sale_order_ids.force_quotation_send()
                             _logger.info("********************Quotation Send******************************")
-                        tx.sudo().sale_order_ids.action_confirm()
+                        print("tx.sudo().sale_order_ids: {}".format(tx.sudo().sale_order_ids))
+                        result = tx.sudo().sale_order_ids.action_confirm()
+                        print("action result: {}".format(result))
                         _logger.info("********************Quotation Confirmed******************************")
                         invoices = tx.sudo().sale_order_ids.action_invoice_create()
                         _logger.info("********************Invoice Created******************************")
                         tx.account_invoice_id = request.env['account.invoice'].browse(invoices and invoices[0] or [])
-                        _logger.info("tx.account_invoice_id: {}".format(tx.account_invoice_id))
                         if tx.account_invoice_id:
-                            tx.account_invoice_id.action_invoice_open()
+                            tx.account_invoice_id.sudo().action_invoice_open()
                             _logger.info("********************Invoice Open******************************")
                             tx._confirm_invoice()
                             _logger.info("********************Invoice Pay******************************")
