@@ -24,7 +24,7 @@ class StockPicking(models.Model):
                 _logger.info("********************TX******************************")
                 _logger.info(tx)
                 if tx:
-                    endpoint = '/merchants/%s/orders/%s' % (tx.acquirer_id.sequra_merchant, tx.sudo().sale_order_id[0].name)
+                    endpoint = '/merchants/%s/orders/%s' % (tx.acquirer_id.sequra_merchant, tx.sudo().sale_order_ids[0].name)
                     _logger.info("********************Endpoint******************************")
                     _logger.info(endpoint)
                     data = self._get_data_json(tx.acquirer_id.sequra_merchant, tx.sudo().sale_order_ids[0].name)
