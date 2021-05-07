@@ -189,19 +189,19 @@ class SequraController(http.Controller):
 
     def _get_items(self, order_id, shipping_name):
         items = []
+        amount_lines = 0
+        amount_total = int(round((order_id.amount_total) * 100, 2))
         for sol in order_id.order_line:
             price_subtotal = sol.price_subtotal
-            total_without_tax = int(float_round(price_subtotal * 100, 2))
-            price_without_tax = int(float_round((price_subtotal / sol.product_uom_qty) * 100, 2))
+            total_without_tax = int(round(price_subtotal * 100, 2))
+            price_without_tax = int(round((price_subtotal / sol.product_uom_qty) * 100, 2))
 
             tax = sol.price_tax if price_subtotal else 0
-            tax = float_round(tax, 2)
+            tax = round(tax, 2)
 
-            total_with_tax = int(float_round((price_subtotal + tax) * 100, 2))
-
-            
-            print("price_subtotal + tax : {} + {} = {}".format(price_subtotal, tax, total_with_tax))
-            price_with_tax = int(float_round(((price_subtotal + tax)/sol.product_uom_qty) * 100, 2))
+            total_with_tax = int(round((price_subtotal + tax) * 100, 2))
+            price_with_tax = int(round(((price_subtotal + tax)/sol.product_uom_qty) * 100, 2))
+            amount_lines += total_with_tax
 
             if order_id.carrier_id.name != sol.name:
                 item = {
@@ -227,6 +227,11 @@ class SequraController(http.Controller):
                 }
 
             items.append(item)
+        
+        if amount_lines != amount_total:
+            amount_diff = amount_total - amount_lines
+            if amount_diff != 0:
+                items[0]["total_with_tax"] += amount_diff
 
         return items
 

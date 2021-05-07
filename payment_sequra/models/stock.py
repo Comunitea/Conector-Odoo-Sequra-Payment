@@ -19,15 +19,15 @@ class StockPicking(models.Model):
         result = super(StockPicking, self).action_done()
         for picking in self:
             if picking.sale_id:
-                tx = self.env['payment.transaction'].search([('sale_order_id', '=', picking.sale_id.id),
+                tx = self.env['payment.transaction'].search([('sale_order_ids', '=', picking.sale_id.id),
                                                              ('acquirer_id.provider', '=', 'sequra')], limit=1)
                 _logger.info("********************TX******************************")
                 _logger.info(tx)
                 if tx:
-                    endpoint = '/merchants/%s/orders/%s' % (tx.acquirer_id.sequra_merchant, tx.sale_order_id.name)
+                    endpoint = '/merchants/%s/orders/%s' % (tx.acquirer_id.sequra_merchant, tx.sudo().sale_order_id[0].name)
                     _logger.info("********************Endpoint******************************")
                     _logger.info(endpoint)
-                    data = self._get_data_json(tx.acquirer_id.sequra_merchant, tx.sale_order_id.name)
+                    data = self._get_data_json(tx.acquirer_id.sequra_merchant, tx.sudo().sale_order_ids[0].name)
                     _logger.info("********************Data******************************")
                     _logger.info(data)
                     response = tx.acquirer_id.request(endpoint, method='PUT', data=data)
